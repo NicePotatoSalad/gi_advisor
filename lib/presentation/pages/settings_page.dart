@@ -80,7 +80,7 @@ class SettingsPage extends ConsumerWidget {
           // About
           ListTile(
             title: const Text('About'),
-            subtitle: const Text('Version 0.2.0'),
+            subtitle: const Text('Version 0.3.0'),
             leading: const Icon(Icons.info),
             onTap: () => _showAboutDialog(context),
           ),
@@ -137,7 +137,7 @@ class SettingsPage extends ConsumerWidget {
     showAboutDialog(
       context: context,
       applicationName: 'Genshin Advisor',
-      applicationVersion: '0.2.0',
+      applicationVersion: '0.3.0',
       applicationLegalese: '© 2024 Genshin Advisor Team',
       children: [
         const SizedBox(height: 16),

@@ -1,0 +1,22 @@
+{
+  "format": "INVALID_FORMAT",
+  "version": "not_a_number",
+  "characters": "this_should_be_an_array",
+  "missing_required_fields": true,
+  "invalid_structure": {
+    "nested": {
+      "deeply": "wrong"
+    }
+  },
+  "characters_data": [
+    {
+      "key": "invalid_character",
+      "name": 12345,
+      "level": "not_a_number",
+      "weapon": "should_be_object",
+      "artifacts": "should_be_array",
+      "stats": null
+    }
+  ]
+}
+

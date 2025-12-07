@@ -1,0 +1,117 @@
+{
+  "format": "GOOD",
+  "version": 1,
+  "source": "test",
+  "characters": [
+    {
+      "key": "hutao",
+      "name": "Hu Tao",
+      "element": "pyro",
+      "rarity": 5,
+      "level": 90,
+      "constellation": 1,
+      "ascension": 6,
+      "friendship": 10,
+      "weapon": {
+        "key": "staff_of_homa",
+        "name": "Staff of Homa",
+        "type": "polearm",
+        "rarity": 5,
+        "level": 90,
+        "ascension": 6,
+        "refinement": 1,
+        "stats": {
+          "baseAtk": 608,
+          "hp_": 0.331
+        }
+      },
+      "artifacts": [
+        {
+          "setKey": "crimson_witch_of_flames",
+          "slotKey": "flower",
+          "level": 20,
+          "rarity": 5,
+          "mainStatKey": "hp",
+          "mainStatValue": 4780,
+          "substats": [
+            {"key": "critRate_", "value": 3.9},
+            {"key": "critDMG_", "value": 7.8},
+            {"key": "atk_", "value": 5.8},
+            {"key": "elementalMastery", "value": 40}
+          ]
+        },
+        {
+          "setKey": "crimson_witch_of_flames",
+          "slotKey": "plume",
+          "level": 20,
+          "rarity": 5,
+          "mainStatKey": "atk",
+          "mainStatValue": 311,
+          "substats": [
+            {"key": "critRate_", "value": 3.5},
+            {"key": "critDMG_", "value": 7.0},
+            {"key": "hp_", "value": 5.2},
+            {"key": "elementalMastery", "value": 40}
+          ]
+        },
+        {
+          "setKey": "crimson_witch_of_flames",
+          "slotKey": "sands",
+          "level": 20,
+          "rarity": 5,
+          "mainStatKey": "hp_",
+          "mainStatValue": 46.6,
+          "substats": [
+            {"key": "critRate_", "value": 3.9},
+            {"key": "critDMG_", "value": 7.8},
+            {"key": "atk_", "value": 5.2},
+            {"key": "elementalMastery", "value": 40}
+          ]
+        },
+        {
+          "setKey": "crimson_witch_of_flames",
+          "slotKey": "goblet",
+          "level": 20,
+          "rarity": 5,
+          "mainStatKey": "pyroDmgBonus_",
+          "mainStatValue": 46.6,
+          "substats": [
+            {"key": "critRate_", "value": 3.5},
+            {"key": "critDMG_", "value": 7.0},
+            {"key": "hp_", "value": 5.2},
+            {"key": "atk_", "value": 4.5}
+          ]
+        },
+        {
+          "setKey": "crimson_witch_of_flames",
+          "slotKey": "circlet",
+          "level": 20,
+          "rarity": 5,
+          "mainStatKey": "critDMG_",
+          "mainStatValue": 62.2,
+          "substats": [
+            {"key": "critRate_", "value": 3.9},
+            {"key": "hp_", "value": 5.8},
+            {"key": "atk_", "value": 5.2},
+            {"key": "elementalMastery", "value": 40}
+          ]
+        }
+      ],
+      "talents": {
+        "auto": 10,
+        "skill": 10,
+        "burst": 10
+      },
+      "stats": {
+        "hp": 35000,
+        "atk": 2800,
+        "def": 900,
+        "critRate_": 0.70,
+        "critDMG_": 2.20,
+        "energyRecharge_": 1.15,
+        "elementalMastery": 200
+      }
+    }
+  ]
+}
+

@@ -5,6 +5,7 @@ import 'package:genshin_advisor/core/config/router_config.dart';
 import 'package:genshin_advisor/core/theme/app_theme.dart';
 import 'package:genshin_advisor/core/services/preferences_service.dart';
 import 'package:genshin_advisor/presentation/providers/character_list_provider.dart';
+import 'package:genshin_advisor/presentation/controllers/import_controller.dart';
 import 'package:genshin_advisor/domain/repositories/character_repository.dart';
 import 'package:genshin_advisor/data/repositories/character_repository_impl.dart';
 import 'package:genshin_advisor/domain/repositories/json_import_repository.dart';
@@ -40,8 +41,13 @@ final characterListProvider = StateNotifierProvider<CharacterListNotifier, Async
   (ref) => CharacterListNotifier(ref.watch(characterRepositoryProvider)),
 );
 
-// Import State
-final importStateProvider = StateProvider<AsyncValue<void>>((ref) => const AsyncValue.data(null));
+// Import Controller
+final importControllerProvider = StateNotifierProvider<ImportController, AsyncValue<ImportResult>>(
+  (ref) => ImportController(
+    importRepository: ref.watch(jsonImportRepositoryProvider),
+    characterRepository: ref.watch(characterRepositoryProvider),
+  ),
+);
 
 class ThemeNotifier extends StateNotifier<ThemeData> {
   ThemeNotifier() : super(AppTheme.lightTheme) {
