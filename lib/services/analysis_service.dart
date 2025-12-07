@@ -1,4 +1,5 @@
 import 'package:genshin_advisor/domain/entities/character.dart';
+import 'package:genshin_advisor/domain/entities/artifact.dart';
 import 'package:genshin_advisor/domain/entities/scoring.dart';
 import 'package:genshin_advisor/core/config/app_config.dart';
 

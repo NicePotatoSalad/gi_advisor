@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'package:drift/drift.dart';
-import 'package:drift_flutter/drift_flutter.dart';
+import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
 import 'package:genshin_advisor/core/config/app_config.dart';
 
 part 'database.g.dart';
@@ -22,10 +24,11 @@ class AppDatabase extends _$AppDatabase {
   int get schemaVersion => AppConfig.databaseVersion;
 
   static QueryExecutor _openConnection() {
-    return driftDatabase(
-      name: AppConfig.databaseName,
-      native: const DriftNativeOptions(),
-    );
+    return LazyDatabase(() async {
+      final dbFolder = await getApplicationDocumentsDirectory();
+      final file = File(p.join(dbFolder.path, AppConfig.databaseName));
+      return NativeDatabase(file);
+    });
   }
 }
 

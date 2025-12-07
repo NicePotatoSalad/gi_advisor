@@ -18,7 +18,6 @@ dependencies:
   # Database
   drift: ^2.15.0
   sqlite3_flutter_libs: ^0.5.20
-  drift_flutter: ^0.1.0
   path_provider: ^2.1.2
   path: ^1.8.3
 
@@ -27,7 +26,7 @@ dependencies:
   flutter_hooks: ^0.20.4
 
   # File handling & JSON
-  file_picker: ^6.1.1
+  file_picker: ^8.1.2
   json_annotation: ^4.8.1
 
   # HTTP client for LLM calls
@@ -61,10 +60,3 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-
-  fonts:
-    - family: Roboto
-      fonts:
-        - asset: fonts/Roboto-Regular.ttf
-        - asset: fonts/Roboto-Bold.ttf
-          weight: 700

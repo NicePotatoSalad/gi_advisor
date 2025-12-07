@@ -5,6 +5,7 @@ import 'package:genshin_advisor/core/config/router_config.dart';
 import 'package:genshin_advisor/core/theme/app_theme.dart';
 import 'package:genshin_advisor/presentation/providers/character_list_provider.dart';
 import 'package:genshin_advisor/domain/repositories/character_repository.dart';
+import 'package:genshin_advisor/data/repositories/character_repository_impl.dart';
 import 'package:genshin_advisor/domain/entities/scoring.dart';
 
 // Router
@@ -15,9 +16,9 @@ final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeData>(
   (ref) => ThemeNotifier(),
 );
 
-// Repositories (placeholder implementations)
+// Repositories
 final characterRepositoryProvider = Provider<CharacterRepository>(
-  (ref) => throw UnimplementedError('CharacterRepository not implemented'),
+  (ref) => CharacterRepositoryImpl(),
 );
 
 // Character List

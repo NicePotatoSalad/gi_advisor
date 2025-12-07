@@ -1,10 +1,9 @@
 import 'package:drift/drift.dart';
-import 'package:genshin_advisor/data/database/database.dart' as db;
+import 'package:genshin_advisor/data/database/database.dart';
 import 'package:genshin_advisor/domain/entities/character.dart' as domain;
 import 'package:genshin_advisor/domain/entities/weapon.dart' as domain;
-import 'package:genshin_advisor/domain/entities/artifact.dart';
 import 'package:genshin_advisor/domain/entities/talent.dart';
-import 'package:genshin_advisor/domain/entities/scoring.dart';
+import 'package:genshin_advisor/domain/entities/scoring.dart' as scoring;
 
 part 'character_dao.g.dart';
 
@@ -49,7 +48,7 @@ class CharacterDao extends DatabaseAccessor<AppDatabase> with _$CharacterDaoMixi
   }
 
   // Get all characters with their data
-  Future<List<Character>> getAllCharacters() async {
+  Future<List<domain.Character>> getAllCharacters() async {
     final query = select(characters).join([
       leftOuterJoin(weapons, weapons.id.equalsExp(characters.weaponId)),
     ]);
@@ -60,23 +59,23 @@ class CharacterDao extends DatabaseAccessor<AppDatabase> with _$CharacterDaoMixi
       final characterRow = row.readTable(characters);
       final weaponRow = row.readTableOrNull(weapons);
 
-      return Character(
+      return domain.Character(
         key: characterRow.key,
         name: characterRow.name,
-        element: CharacterElement.values.firstWhere(
+        element: domain.CharacterElement.values.firstWhere(
           (e) => e.name == characterRow.element,
         ),
-        rarity: CharacterRarity.values[characterRow.rarity - 1],
+        rarity: domain.CharacterRarity.values[characterRow.rarity - 1],
         level: characterRow.level,
         constellation: characterRow.constellation,
-        weapon: weaponRow != null ? _mapWeaponRow(weaponRow) : Weapon.empty(),
+        weapon: weaponRow != null ? _mapWeaponRow(weaponRow) : _emptyWeapon(),
         artifacts: [], // TODO: Load artifacts
         talents: Talents(
           auto: characterRow.autoTalent,
           skill: characterRow.skillTalent,
           burst: characterRow.burstTalent,
         ),
-        stats: CharacterStats(
+        stats: domain.CharacterStats(
           hp: characterRow.hp,
           atk: characterRow.atk,
           def: characterRow.def,
@@ -101,54 +100,54 @@ class CharacterDao extends DatabaseAccessor<AppDatabase> with _$CharacterDaoMixi
   }
 
   // Get character by key
-  Future<Character?> getCharacterByKey(String key) async {
+  Future<domain.Character?> getCharacterByKey(String key) async {
     final query = select(characters)..where((tbl) => tbl.key.equals(key));
-    final row = await query.getSingleOrNull();
+    final characterRow = await query.getSingleOrNull();
 
-    if (row == null) return null;
+    if (characterRow == null) return null;
 
     // TODO: Load weapon and artifacts
-    return Character(
-      key: row.key,
-      name: row.name,
-      element: CharacterElement.values.firstWhere(
-        (e) => e.name == row.element,
+    return domain.Character(
+      key: characterRow.key,
+      name: characterRow.name,
+      element: domain.CharacterElement.values.firstWhere(
+        (e) => e.name == characterRow.element,
       ),
-      rarity: CharacterRarity.values[row.rarity - 1],
-      level: row.level,
-      constellation: row.constellation,
-      weapon: Weapon.empty(), // TODO
+      rarity: domain.CharacterRarity.values[characterRow.rarity - 1],
+      level: characterRow.level,
+      constellation: characterRow.constellation,
+      weapon: _emptyWeapon(), // TODO
       artifacts: [], // TODO
       talents: Talents(
-        auto: row.autoTalent,
-        skill: row.skillTalent,
-        burst: row.burstTalent,
+        auto: characterRow.autoTalent,
+        skill: characterRow.skillTalent,
+        burst: characterRow.burstTalent,
       ),
-      stats: CharacterStats(
-        hp: row.hp,
-        atk: row.atk,
-        def: row.def,
-        critRate: row.critRate,
-        critDmg: row.critDmg,
-        energyRecharge: row.energyRecharge,
-        elementalMastery: row.elementalMastery,
-        physicalDmgBonus: row.physicalDmgBonus,
-        anemoDmgBonus: row.anemoDmgBonus,
-        geoDmgBonus: row.geoDmgBonus,
-        electroDmgBonus: row.electroDmgBonus,
-        dendroDmgBonus: row.dendroDmgBonus,
-        hydroDmgBonus: row.hydroDmgBonus,
-        pyroDmgBonus: row.pyroDmgBonus,
-        cryoDmgBonus: row.cryoDmgBonus,
-        healingBonus: row.healingBonus,
+      stats: domain.CharacterStats(
+        hp: characterRow.hp,
+        atk: characterRow.atk,
+        def: characterRow.def,
+        critRate: characterRow.critRate,
+        critDmg: characterRow.critDmg,
+        energyRecharge: characterRow.energyRecharge,
+        elementalMastery: characterRow.elementalMastery,
+        physicalDmgBonus: characterRow.physicalDmgBonus,
+        anemoDmgBonus: characterRow.anemoDmgBonus,
+        geoDmgBonus: characterRow.geoDmgBonus,
+        electroDmgBonus: characterRow.electroDmgBonus,
+        dendroDmgBonus: characterRow.dendroDmgBonus,
+        hydroDmgBonus: characterRow.hydroDmgBonus,
+        pyroDmgBonus: characterRow.pyroDmgBonus,
+        cryoDmgBonus: characterRow.cryoDmgBonus,
+        healingBonus: characterRow.healingBonus,
       ),
-      friendship: row.friendship,
-      ascension: row.ascension,
+      friendship: characterRow.friendship,
+      ascension: characterRow.ascension,
     );
   }
 
   // Insert character summary
-  Future<int> insertCharacterSummary(int characterId, CharacterSummary summary) async {
+  Future<int> insertCharacterSummary(int characterId, scoring.CharacterSummary summary) async {
     final companion = CharacterSummariesCompanion.insert(
       characterId: characterId,
       role: summary.role.name,
@@ -168,8 +167,9 @@ class CharacterDao extends DatabaseAccessor<AppDatabase> with _$CharacterDaoMixi
     return await into(characterSummaries).insertOnConflictUpdate(companion);
   }
 
-  Future<int> _getOrInsertWeapon(Weapon weapon) async {
-    final existing = await (select(weapons)..where((tbl) => tbl.key.equals(weapon.key))).getSingleOrNull();
+  Future<int> _getOrInsertWeapon(domain.Weapon weapon) async {
+    final existingQuery = select(weapons)..where((tbl) => tbl.key.equals(weapon.key));
+    final existing = await existingQuery.getSingleOrNull();
 
     if (existing != null) {
       return existing.id;
@@ -207,16 +207,16 @@ class CharacterDao extends DatabaseAccessor<AppDatabase> with _$CharacterDaoMixi
     return await into(weapons).insert(companion);
   }
 
-  Weapon _mapWeaponRow(WeaponRow row) {
-    return Weapon(
+  domain.Weapon _mapWeaponRow(Weapon row) {
+    return domain.Weapon(
       key: row.key,
       name: row.name,
-      type: WeaponType.values.firstWhere((t) => t.name == row.type),
-      rarity: WeaponRarity.values[row.rarity - 3],
+      type: domain.WeaponType.values.firstWhere((t) => t.name == row.type),
+      rarity: domain.WeaponRarity.values[row.rarity - 3],
       level: row.level,
       ascension: row.ascension,
       refinement: row.refinement,
-      stats: WeaponStats(
+      stats: domain.WeaponStats(
         baseAtk: row.baseAtk,
         hp: row.hp,
         atk: row.atk,
@@ -241,18 +241,15 @@ class CharacterDao extends DatabaseAccessor<AppDatabase> with _$CharacterDaoMixi
   }
 }
 
-// Extension to provide empty instances for testing
-extension WeaponExtensions on Weapon {
-  static Weapon empty() {
-    return Weapon(
+  domain.Weapon _emptyWeapon() {
+    return domain.Weapon(
       key: '',
       name: '',
-      type: WeaponType.sword,
-      rarity: WeaponRarity.three,
+      type: domain.WeaponType.sword,
+      rarity: domain.WeaponRarity.three,
       level: 1,
       ascension: 0,
       refinement: 1,
-      stats: WeaponStats(baseAtk: 0),
+      stats: domain.WeaponStats(baseAtk: 0),
     );
   }
-}
