@@ -1,0 +1,70 @@
+name: genshin_advisor
+description: A Genshin Impact advisor app with AI-powered recommendations
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management
+  flutter_riverpod: ^2.4.9
+  riverpod_annotation: ^2.3.3
+
+  # Database
+  drift: ^2.15.0
+  sqlite3_flutter_libs: ^0.5.20
+  drift_flutter: ^0.1.0
+  path_provider: ^2.1.2
+  path: ^1.8.3
+
+  # UI & Navigation
+  go_router: ^12.1.3
+  flutter_hooks: ^0.20.4
+
+  # File handling & JSON
+  file_picker: ^6.1.1
+  json_annotation: ^4.8.1
+
+  # HTTP client for LLM calls
+  http: ^1.1.2
+
+  # Utilities
+  uuid: ^4.2.1
+  intl: ^0.19.0
+  collection: ^1.18.0
+  equatable: ^2.0.5
+
+  # Material Design 3
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Code generation
+  drift_dev: ^2.15.0
+  build_runner: ^2.4.7
+  json_serializable: ^6.7.1
+  riverpod_generator: ^2.3.9
+
+  # Linting
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
+        - asset: fonts/Roboto-Bold.ttf
+          weight: 700
