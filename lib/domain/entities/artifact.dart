@@ -104,3 +104,4 @@ class ArtifactStat extends Equatable {
     }
   }
 }
+

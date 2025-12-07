@@ -31,3 +31,4 @@ class LLMResponse {
   final String model;
   final double? confidence;
 }
+

@@ -8,3 +8,4 @@ abstract class AnalysisRepository {
   Future<int> calculateInvestmentPriority(Character character, CharacterAnalysis analysis);
   Future<CharacterRole> determineCharacterRole(Character character);
 }
+

@@ -155,3 +155,4 @@ class CharacterProgress extends Equatable {
         overallProgress,
   ];
 }
+

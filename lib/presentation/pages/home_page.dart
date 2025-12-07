@@ -21,7 +21,7 @@ class HomePage extends ConsumerWidget {
           ),
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () => context.go('/settings'),
+            onPressed: () => context.push('/settings'),
           ),
         ],
       ),
@@ -129,3 +129,4 @@ class HomePage extends ConsumerWidget {
     );
   }
 }
+

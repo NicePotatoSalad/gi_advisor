@@ -200,3 +200,4 @@ class CharacterCard extends StatelessWidget {
     }
   }
 }
+

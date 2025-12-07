@@ -72,3 +72,4 @@ class AnalysisUtils {
            (progress.weaponProgress * weights['weapon']!);
   }
 }
+

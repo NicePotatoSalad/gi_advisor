@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:genshin_advisor/core/di/providers.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -9,10 +10,21 @@ class SettingsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        if (!didPop) {
+          context.go('/');
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Settings'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => context.go('/'),
+          ),
+        ),
       body: ListView(
         children: [
           // Theme settings
@@ -68,7 +80,7 @@ class SettingsPage extends ConsumerWidget {
           // About
           ListTile(
             title: const Text('About'),
-            subtitle: const Text('Version 1.0.0'),
+            subtitle: const Text('Version 0.1.0'),
             leading: const Icon(Icons.info),
             onTap: () => _showAboutDialog(context),
           ),
@@ -84,6 +96,7 @@ class SettingsPage extends ConsumerWidget {
             },
           ),
         ],
+      ),
       ),
     );
   }
@@ -124,7 +137,7 @@ class SettingsPage extends ConsumerWidget {
     showAboutDialog(
       context: context,
       applicationName: 'Genshin Advisor',
-      applicationVersion: '1.0.0',
+      applicationVersion: '0.1.0',
       applicationLegalese: '© 2024 Genshin Advisor Team',
       children: [
         const SizedBox(height: 16),

@@ -40,3 +40,4 @@ class CharacterDetailPage extends ConsumerWidget {
     );
   }
 }
+

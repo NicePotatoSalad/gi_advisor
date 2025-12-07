@@ -25,3 +25,4 @@ class Talents extends Equatable {
     return currentTotal / maxTotal;
   }
 }
+

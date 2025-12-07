@@ -113,3 +113,4 @@ class CharacterStats extends Equatable {
         healingBonus,
       ];
 }
+

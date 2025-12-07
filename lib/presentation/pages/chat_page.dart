@@ -160,3 +160,4 @@ class ChatMessage extends StatelessWidget {
     );
   }
 }
+

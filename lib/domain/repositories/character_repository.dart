@@ -12,3 +12,4 @@ abstract class CharacterRepository {
   Future<void> deleteCharacter(String key);
   Future<void> deleteAllCharacters();
 }
+

@@ -23,3 +23,4 @@ class CharacterListNotifier extends StateNotifier<AsyncValue<List<CharacterSumma
     await _loadCharacters();
   }
 }
+

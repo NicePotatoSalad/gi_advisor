@@ -107,3 +107,4 @@ class WeaponStats extends Equatable {
         cryoDmgBonus,
       ];
 }
+

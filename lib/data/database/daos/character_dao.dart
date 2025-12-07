@@ -69,7 +69,7 @@ class CharacterDao extends DatabaseAccessor<AppDatabase> with _$CharacterDaoMixi
         level: characterRow.level,
         constellation: characterRow.constellation,
         weapon: weaponRow != null ? _mapWeaponRow(weaponRow) : _emptyWeapon(),
-        artifacts: [], // TODO: Load artifacts
+        artifacts: const [], // TODO: Load artifacts
         talents: Talents(
           auto: characterRow.autoTalent,
           skill: characterRow.skillTalent,
@@ -117,7 +117,7 @@ class CharacterDao extends DatabaseAccessor<AppDatabase> with _$CharacterDaoMixi
       level: characterRow.level,
       constellation: characterRow.constellation,
       weapon: _emptyWeapon(), // TODO
-      artifacts: [], // TODO
+      artifacts: const [], // TODO
       talents: Talents(
         auto: characterRow.autoTalent,
         skill: characterRow.skillTalent,
@@ -242,7 +242,7 @@ class CharacterDao extends DatabaseAccessor<AppDatabase> with _$CharacterDaoMixi
 }
 
   domain.Weapon _emptyWeapon() {
-    return domain.Weapon(
+    return const domain.Weapon(
       key: '',
       name: '',
       type: domain.WeaponType.sword,

@@ -52,3 +52,4 @@ class CharacterRepositoryImpl implements CharacterRepository {
     // TODO: Implement with database
   }
 }
+

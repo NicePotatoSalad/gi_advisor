@@ -1,6 +1,6 @@
 class AppConfig {
   static const String appName = 'Genshin Advisor';
-  static const String appVersion = '1.0.0';
+  static const String appVersion = '0.1.0';
   static const int appVersionCode = 1;
 
   // Database
@@ -26,3 +26,4 @@ class AppConfig {
   static const double buildWeight = 0.25;
   static const double artifactWeight = 0.2;
 }
+
