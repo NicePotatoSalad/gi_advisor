@@ -26,49 +26,49 @@ class HomePage extends ConsumerWidget {
         ],
       ),
       body: characterListAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.error_outline, size: 64, color: Colors.red),
-              const SizedBox(height: 16),
-              Text('Error: $error'),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () => ref.invalidate(characterListProvider),
-                child: const Text('Retry'),
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (error, stack) => Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.error_outline, size: 64, color: Colors.red),
+                  const SizedBox(height: 16),
+                  Text('Error: $error'),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => ref.invalidate(characterListProvider),
+                    child: const Text('Retry'),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-        data: (characters) {
-          if (characters.isEmpty) {
-            return _buildEmptyState(context, ref);
-          }
-
-          // Sort by investment priority
-          final sortedCharacters = [...characters]
-            ..sort((a, b) => b.investmentPriority.compareTo(a.investmentPriority));
-
-          return RefreshIndicator(
-            onRefresh: () async {
-              ref.invalidate(characterListProvider);
-            },
-            child: ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: sortedCharacters.length,
-              itemBuilder: (context, index) {
-                final character = sortedCharacters[index];
-                return CharacterCard(
-                  character: character,
-                  onTap: () => context.go('/character/${character.key}'),
-                );
-              },
             ),
-          );
-        },
-      ),
+            data: (characters) {
+              if (characters.isEmpty) {
+                return _buildEmptyState(context, ref);
+              }
+
+              // Sort by investment priority
+              final sortedCharacters = [...characters]
+                ..sort((a, b) => b.investmentPriority.compareTo(a.investmentPriority));
+
+              return RefreshIndicator(
+                onRefresh: () async {
+                  ref.invalidate(characterListProvider);
+                },
+                child: ListView.builder(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: sortedCharacters.length,
+                  itemBuilder: (context, index) {
+                    final character = sortedCharacters[index];
+                    return CharacterCard(
+                      character: character,
+                      onTap: () => context.go('/character/${character.key}'),
+                    );
+                  },
+                ),
+              );
+            },
+          ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showImportDialog(context, ref),
         child: const Icon(Icons.add),

@@ -1,7 +1,7 @@
 class AppConfig {
   static const String appName = 'Genshin Advisor';
-  static const String appVersion = '0.1.0';
-  static const int appVersionCode = 1;
+  static const String appVersion = '0.2.0';
+  static const int appVersionCode = 2;
 
   // Database
   static const String databaseName = 'genshin_advisor.db';

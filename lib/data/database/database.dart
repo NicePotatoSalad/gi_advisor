@@ -63,9 +63,6 @@ class Characters extends Table {
   IntColumn get autoTalent => integer()();
   IntColumn get skillTalent => integer()();
   IntColumn get burstTalent => integer()();
-
-  @override
-  Set<Column> get primaryKey => {id};
 }
 
 // Weapons table
@@ -97,9 +94,6 @@ class Weapons extends Table {
   RealColumn get hydroDmgBonus => real()();
   RealColumn get pyroDmgBonus => real()();
   RealColumn get cryoDmgBonus => real()();
-
-  @override
-  Set<Column> get primaryKey => {id};
 }
 
 // Artifacts table
@@ -112,9 +106,6 @@ class Artifacts extends Table {
   TextColumn get mainStatKey => text()();
   RealColumn get mainStatValue => real()();
   BoolColumn get locked => boolean().withDefault(const Constant(false))();
-
-  @override
-  Set<Column> get primaryKey => {id};
 }
 
 // Artifact sub-stats table (many-to-many with artifacts)
@@ -123,9 +114,6 @@ class ArtifactSubStats extends Table {
   IntColumn get artifactId => integer().references(Artifacts, #id)();
   TextColumn get statKey => text()();
   RealColumn get statValue => real()();
-
-  @override
-  Set<Column> get primaryKey => {id};
 }
 
 // Character-Artifact relationship
@@ -133,9 +121,6 @@ class CharacterArtifacts extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get characterId => integer().references(Characters, #id)();
   IntColumn get artifactId => integer().references(Artifacts, #id)();
-
-  @override
-  Set<Column> get primaryKey => {id};
 }
 
 // Character summaries for LLM
@@ -154,7 +139,4 @@ class CharacterSummaries extends Table {
   RealColumn get weaponProgress => real()();
   RealColumn get overallProgress => real()();
   DateTimeColumn get lastUpdated => dateTime()();
-
-  @override
-  Set<Column> get primaryKey => {id};
 }
